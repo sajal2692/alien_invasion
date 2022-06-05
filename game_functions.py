@@ -46,6 +46,8 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,
     """Starts a enw game when the player clicks Play"""
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
+        ai_settings.initialize_dynamic_settings()
+        # Hide cursor
         pygame.mouse.set_visible(False)
         # Reset the game stats
         stats.reset_stats()
@@ -56,7 +58,7 @@ def check_play_button(ai_settings, screen, stats, play_button, ship, aliens,
         bullets.empty()
 
         # Create a new fleet and center the ship
-        create_fleet(ai_settings, screen, stats, play_button, ship, aliens)
+        create_fleet(ai_settings, screen, ship, aliens)
         ship.center_ship()
     
 def create_alien(ai_settings, screen, aliens, alien_number, row_number):
@@ -68,7 +70,7 @@ def create_alien(ai_settings, screen, aliens, alien_number, row_number):
     alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
     aliens.add(alien)
 
-def create_fleet(ai_settings, screen, stats, play_button, ship, aliens):
+def create_fleet(ai_settings, screen, ship, aliens):
     """Create a full fleet of alients"""
     # Create an alien and find the number of aliens in a row
     # Spacing between each alien is equal to one alien width
@@ -108,6 +110,7 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, aliens, bullets):
     if len(aliens) == 0:
         # Destroy existing bullets and create new fleet.
         bullets.empty()
+        ai_settings.increase_speed()
         create_fleet(ai_settings, screen, ship, aliens)
 
 def check_fleet_edges(ai_settings, aliens):
@@ -147,7 +150,7 @@ def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
         bullets.empty()
         
         # Create a new fleet and center ship
-        create_fleet(ai_settings, screen, ship, aliens)
+        create_fleet(ai_settings, screen ,ship, aliens)
         ship.center_ship()
         
         # Pause
