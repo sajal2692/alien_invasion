@@ -1,4 +1,4 @@
-# alien_invasion
+# Alien Invasion
 A fun weekend project built with guidance from Python Crash Course book.
 
 To play:
@@ -7,3 +7,5 @@ To play:
 3. Run `python alien_invasion.py`
 
 High scores are not persisted across runs, but a simple mechanism can be added to save scores to a file and read from it.
+
+More: https://ehmatthes.github.io/pcc_2e/regular_index/
